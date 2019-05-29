@@ -4,7 +4,7 @@
     targetType: 'inline'
     script: '# Write your powershell commands here.
       
-      echo "1" | java -jar "C:\Users\wesley.nutley\Downloads\ready-api-license-manager\ready-api-license-manager\ready-api-license-manager-1.2.6.jar" -s SB-MA-PC0BXUDC:1099'
+      1 | java -jar "C:\Users\wesley.nutley\Downloads\ready-api-license-manager\ready-api-license-manager\ready-api-license-manager-1.2.6.jar" -s SB-MA-PC0BXUDC:1099'
     errorActionPreference: 'continue'
 # Start with a minimal pipeline that you can customize to build and deploy your code.
 # Add steps that build, run tests, deploy, and more:
