@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:testCase id="765aca7d-2674-439a-8029-c81b7969941d" discardOkResults="false" failOnError="false" failTestCaseOnErrors="true" keepSession="true" name="ReadInputFile" searchProperties="true" timeout="0" xmlns:con="http://eviware.com/soapui/config">
+  <con:settings>
+    <con:setting id="765aca7d-2674-439a-8029-c81b7969941dfileName">ReadInputFile</con:setting>
+  </con:settings>
+  <con:savedRecentRuns>1</con:savedRecentRuns>
+  <con:testStep type="datasource" name="DataSource" id="3299ae80-91bb-4c73-ba81-72f8c9b74b33" disabled="true">
+    <con:settings/>
+    <con:config xsi:type="con:DataSourceStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+      <con:dataSource type="File">
+        <con:configuration>
+          <fileName>C:/Users/itlxv01/SOAP/SampleProject/target/testData/SampleDataFile.csv</fileName>
+          <separator>,</separator>
+          <trim>true</trim>
+          <charset>Cp1252</charset>
+          <quotedValues>true</quotedValues>
+        </con:configuration>
+      </con:dataSource>
+      <con:shared>true</con:shared>
+      <con:restartShared>true</con:restartShared>
+      <con:property>Column 1</con:property>
+      <con:property>Column 2</con:property>
+      <con:property>Column 3</con:property>
+      <con:startRow>1</con:startRow>
+      <con:endRow/>
+      <con:recordsPerIteration>1</con:recordsPerIteration>
+      <con:completeLastOperation>true</con:completeLastOperation>
+      <con:trimValues>false</con:trimValues>
+      <con:entitizeValues>false</con:entitizeValues>
+      <con:restartOnRun>true</con:restartOnRun>
+      <con:expandProperties>false</con:expandProperties>
+    </con:config>
+  </con:testStep>
+  <con:testStep type="datagen" name="DataGen" id="fd9d60f8-a62f-4831-975d-c65818c79543">
+    <con:settings/>
+    <con:config xsi:type="con:DataGeneratorStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+      <con:property type="Script">
+        <con:configuration>
+          <script>Random random = new Random();
+
+// get the facility information data source filename
+def filename = testRunner.testCase.getTestStepByName("DataSource").getDataSource().getFileName()
+log.info filename;
+
+// read the file into a list of strings
+def linesInFile = new File(filename).collect {it}
+
+// first line is header
+def headerLine = linesInFile.get(0)
+def headerColumns = headerLine.split('\",\"')
+
+// get a reandom line of data
+def currentLine = linesInFile.get((random.nextInt(linesInFile.size() - 1 ) + 1))
+
+// parse the csv string
+def currentColumnValues = currentLine.split('\",\"');
+headerColumns.eachWithIndex { it, index ->
+	testRunner.testCase.setPropertyValue( it.replace('\"', ''), currentColumnValues.getAt(index).replace('\"', ''));
+}</script>
+        </con:configuration>
+        <con:name>readFileIntoProperties</con:name>
+        <con:mode>STEP</con:mode>
+        <con:shared>false</con:shared>
+      </con:property>
+    </con:config>
+  </con:testStep>
+  <con:properties>
+    <con:property>
+      <con:name>Column 1,Column 2,Column 3</con:name>
+      <con:value>Item 31,Item 32,Item 34</con:value>
+    </con:property>
+    <con:property>
+      <con:name>Column 1</con:name>
+      <con:value>Item 21</con:value>
+    </con:property>
+    <con:property>
+      <con:name>Column 2</con:name>
+      <con:value>Item 22</con:value>
+    </con:property>
+    <con:property>
+      <con:name>Column 3</con:name>
+      <con:value>Item 23</con:value>
+    </con:property>
+  </con:properties>
+  <con:reportParameters/>
+</con:testCase>

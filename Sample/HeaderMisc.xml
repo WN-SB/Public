@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:testCase id="60d7523c-6ea9-4b1b-b722-7ea3c5c0cb7d" discardOkResults="false" failOnError="false" failTestCaseOnErrors="true" keepSession="true" name="HeaderMisc" searchProperties="true" timeout="0" xmlns:con="http://eviware.com/soapui/config">
+  <con:settings>
+    <con:setting id="23acebe4-bc35-4517-b3f1-07b5c960edc9fileName">HeaderMisc</con:setting>
+    <con:setting id="60d7523c-6ea9-4b1b-b722-7ea3c5c0cb7dfileName">HeaderMisc</con:setting>
+  </con:settings>
+  <con:savedRecentRuns>1</con:savedRecentRuns>
+  <con:testStep type="datagen" name="MiscHeader" id="96f6aa8b-26e2-4548-958a-9dcd6c84e27e">
+    <con:settings/>
+    <con:config xsi:type="con:DataGeneratorStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+      <con:property type="Script">
+        <con:configuration>
+          <script>import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+
+def randomNumber = Math.abs(new Random().nextInt() % 999999999) + 1;
+def timeStamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss"));
+def randomUid = UUID.randomUUID();
+
+testRunner.testCase.setPropertyValue( "randomNumber", randomNumber.toString() );
+testRunner.testCase.setPropertyValue( "timeStamp", timeStamp );
+testRunner.testCase.setPropertyValue( "randomUid", randomUid.toString() );</script>
+        </con:configuration>
+        <con:name>MiscHeaderInformation</con:name>
+        <con:mode>STEP</con:mode>
+        <con:shared>false</con:shared>
+      </con:property>
+    </con:config>
+  </con:testStep>
+  <con:properties>
+    <con:property>
+      <con:name>messageId</con:name>
+      <con:value>630666334</con:value>
+    </con:property>
+    <con:property>
+      <con:name>messageTimeStamp</con:name>
+      <con:value>2019-06-05T12:09:13</con:value>
+    </con:property>
+    <con:property>
+      <con:name>repairHeaderKey</con:name>
+      <con:value>117aec39-55fe-4e20-8725-abef8d0bbf63</con:value>
+    </con:property>
+    <con:property>
+      <con:name>randomNumber</con:name>
+      <con:value>120698829</con:value>
+    </con:property>
+    <con:property>
+      <con:name>timeStamp</con:name>
+      <con:value>2019-08-15T13:37:28</con:value>
+    </con:property>
+    <con:property>
+      <con:name>randomUid</con:name>
+      <con:value>fe58ce8f-87b0-4c71-ad13-adebc24a566e</con:value>
+    </con:property>
+  </con:properties>
+  <con:reportParameters/>
+</con:testCase>
